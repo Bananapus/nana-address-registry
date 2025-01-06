@@ -47,7 +47,7 @@ contract JBAddressRegistry is IJBAddressRegistry {
     function registerAddress(address deployer, bytes32 salt, bytes calldata bytecode) external override {
         // Calculate the address of the contract using the provided `create2` salt and deployment bytecode.
         address hook =
-            address(uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), deployer, salt, keccak256(bytecode))))));
+            address(uint160(uint256(keccak256(abi.encode(bytes1(0xff), deployer, salt, keccak256(bytecode))))));
 
         // Register the contract using the calculated address.
         _registerAddress(hook, deployer);
